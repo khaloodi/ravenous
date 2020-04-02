@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./SearchBar.css";
 
 const sortByOptions = {
@@ -14,14 +14,33 @@ class SearchBar extends React.Component {
 
       note:
         return Object.keys(sortByOptions) ... returns an array of all the keys
+
+        .map ... returns a new array that's been changed or transformed in place, it's a "higher order function" which means it takes a callback function as an argument, 
+
+        sortByOption =>{} ... each element inside our array that we're chaining it to
       */
+
     return Object.keys(sortByOptions).map(sortByOption => {
       let sortByOptionValue = sortByOptions[sortByOption];
+      return <li key={sortByOptionValue}> {sortByOption} </li>;
     });
   };
 
   render() {
-    return <li key={sortByOptions}> {this.renderSortByOptions()} </li>;
+    return (
+      <div className="SearchBar">
+        <div className="SearchBar-sort-options">
+          <ul>{this.renderSortByOptions()}</ul>
+        </div>
+        <div className="SearchBar-fields">
+          <input placeholder="Search Businesses" />
+          <input placeholder="Where?" />
+        </div>
+        <div className="SearchBar-submit">
+          <a href="www.#.com">Let's Go</a>
+        </div>
+      </div>
+    );
   }
 }
 

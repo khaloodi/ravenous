@@ -7,7 +7,7 @@ import SearchBar from "../SearchBar/SearchBar";
 function App() {
   return (
     <div className="App">
-      <SearchBar />
+      <h1> ravenous </h1> <SearchBar />
       <BusinessList />
     </div>
   );
