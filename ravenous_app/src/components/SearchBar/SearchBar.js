@@ -1,24 +1,27 @@
 import React, { Component } from "react";
 import "./SearchBar.css";
 
+const sortByOptions = {
+  "Best Match": "best_match",
+  "Highest Rated": "rating",
+  "Most Reviewed": "review_count"
+};
+
 class SearchBar extends React.Component {
-  render() {
-    const SortByOptions = {
-      "Best Match": "best_match",
-      "Highest Rated": "rating",
-      "Most Reviewed": "review_count"
-    };
-
-    const renderSortByOptions = () => {
-      /*
+  renderSortByOptions = () => {
+    /*
       The method should iterate through the keys and values of the sortByOptions object and return a list item. The list item elements should use the keys as an attribute, and the values as content. Let’s start building it out.
-      */
-      return Object.keys(this.SortByOptions).map(sortByOption => {
-        let sortByOptionValue = sortByOptions[sortByOption];
-      });
-    };
 
-    return <li key={SortByOptions}> {this.renderSortByOptions()} </li>;
+      note:
+        return Object.keys(sortByOptions) ... returns an array of all the keys
+      */
+    return Object.keys(sortByOptions).map(sortByOption => {
+      let sortByOptionValue = sortByOptions[sortByOption];
+    });
+  };
+
+  render() {
+    return <li key={sortByOptions}> {this.renderSortByOptions()} </li>;
   }
 }
 
