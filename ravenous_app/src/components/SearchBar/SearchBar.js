@@ -1,55 +1,45 @@
 import React from "react";
 import "./SearchBar.css";
 
-const sortByOptions = {
-  "Best Match": "best_match",
-  "Highest Rated": "rating",
-  "Most Reviewed": "review_count",
-};
-
 class SearchBar extends React.Component {
-  constructor() {
-    super();
-    this.handleTermChange = this.handleTermChange.bind(this);
-    this.handleLocationChange = this.handleLocationChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
+  constructor(props) {
+    super(props);
+
     this.state = {
       term: "",
       location: "",
       sortBy: "best_match",
-      sortByOptions: {
-        "Best Match": "best_match",
-        "Highest Rated": "rating",
-        "Most Reviewed": "review_count",
-      },
+    };
+
+    this.handleTermChange = this.handleTermChange.bind(this);
+    this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+
+    this.sortByOptions = {
+      "Best Match": "best_match",
+      "Highest Rated": "rating",
+      "Most Reviewed": "review_count",
     };
   }
 
-  getSortByClass = (sortByOption) => {
+  getSortByClass(sortByOption) {
     if (this.state.sortBy === sortByOption) {
       return "active";
-    } else {
-      return "";
     }
-  };
+    return "";
+  }
 
-  handleSortByChange = (sortByOption) => {
-    this.setState({
-      sortBy: this.getSortByClass(sortByOption),
-    });
-  };
+  handleSortByChange(sortByOption) {
+    this.setState({ sortBy: sortByOption });
+  }
 
-  handleTermChange = (event) => {
-    this.setState({
-      term: event.target.value,
-    });
-  };
+  handleTermChange(event) {
+    this.setState({ term: event.target.value });
+  }
 
-  handleLocationChange = (event) => {
-    this.setState({
-      location: event.target.value,
-    });
-  };
+  handleLocationChange(event) {
+    this.setState({ location: event.target.value });
+  }
 
   handleSearch(event) {
     this.props.searchYelp(
@@ -57,35 +47,24 @@ class SearchBar extends React.Component {
       this.state.location,
       this.state.sortBy
     );
+
     event.preventDefault();
   }
 
-  renderSortByOptions = () => {
-    /*
-      The method should iterate through the keys and values of the sortByOptions object and return a list item. The list item elements should use the keys as an attribute, and the values as content. Let’s start building it out.
-
-      note:
-        return Object.keys(sortByOptions) ... returns an array of all the keys
-
-        .map ... returns a new array that's been changed or transformed in place, it's a "higher order function" which means it takes a callback function as an argument, 
-
-        sortByOption =>{} ... each element inside our array that we're chaining it to
-      */
-
-    return Object.keys(sortByOptions).map((sortByOption) => {
-      let sortByOptionValue = sortByOptions[sortByOption];
+  renderSortByOptions() {
+    return Object.keys(this.sortByOptions).map((sortByOption) => {
+      let sortByOptionValue = this.sortByOptions[sortByOption];
       return (
         <li
           className={this.getSortByClass(sortByOptionValue)}
           key={sortByOptionValue}
           onClick={this.handleSortByChange.bind(this, sortByOptionValue)}
         >
-          {" "}
-          {sortByOption}{" "}
+          {sortByOption}
         </li>
       );
     });
-  };
+  }
 
   render() {
     return (
@@ -95,10 +74,10 @@ class SearchBar extends React.Component {
         </div>
         <div className="SearchBar-fields">
           <input
-            onChange={this.handleTermChange}
             placeholder="Search Businesses"
+            onChange={this.handleTermChange}
           />
-          <input onChange={this.handleLocationChange} placeholder="Where?" />
+          <input placeholder="Where?" onChange={this.handleLocationChange} />
         </div>
         <div className="SearchBar-submit">
           <a onClick={this.handleSearch}>Let's Go</a>
