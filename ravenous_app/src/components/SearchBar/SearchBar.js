@@ -4,10 +4,32 @@ import "./SearchBar.css";
 const sortByOptions = {
   "Best Match": "best_match",
   "Highest Rated": "rating",
-  "Most Reviewed": "review_count"
+  "Most Reviewed": "review_count",
 };
 
 class SearchBar extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      term: "",
+      location: "",
+      sortBy: "best_match",
+      sortByOptions: {
+        "Best Match": "best_match",
+        "Highest Rated": "rating",
+        "Most Reviewed": "review_count",
+      },
+    };
+  }
+
+  getSortByClass = (sortByOption) => {
+    if (this.state.sortBy === sortByOption) {
+      return "active";
+    } else {
+      return "";
+    }
+  };
+
   renderSortByOptions = () => {
     /*
       The method should iterate through the keys and values of the sortByOptions object and return a list item. The list item elements should use the keys as an attribute, and the values as content. Let’s start building it out.
@@ -20,7 +42,7 @@ class SearchBar extends React.Component {
         sortByOption =>{} ... each element inside our array that we're chaining it to
       */
 
-    return Object.keys(sortByOptions).map(sortByOption => {
+    return Object.keys(sortByOptions).map((sortByOption) => {
       let sortByOptionValue = sortByOptions[sortByOption];
       return <li key={sortByOptionValue}> {sortByOption} </li>;
     });
